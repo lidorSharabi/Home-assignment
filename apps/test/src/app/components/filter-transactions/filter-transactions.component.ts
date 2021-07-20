@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ClientAccount } from '../../models/client-account';
+import { DateRange } from '../../models/date-range';
 
 @Component({
   selector: 'filter-transactions',
@@ -6,11 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-transactions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterTransactionsComponent implements OnInit {
-
+export class FilterTransactionsComponent {
+  @Input() dateRangeList: DateRange[] = [];
+  @Input() clientsAccounts: ClientAccount[] = [];
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

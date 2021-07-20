@@ -1,1 +1,12 @@
-<p>filter-transactions works!</p>
+<mat-form-field>
+    <mat-select>
+        <mat-option *ngFor="let client of clientsAccounts" [value]="client.id">
+            {{client.id}} ({{client.currency.shortCode}})
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-button-toggle-group>
+    <mat-button-toggle *ngFor="let dateRange of dateRangeList" [value]="dateRange.value">
+        {{dateRange.desc}}</mat-button-toggle>
+</mat-button-toggle-group>
