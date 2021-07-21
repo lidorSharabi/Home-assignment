@@ -8,5 +8,5 @@
 
   <account-balance [accountData]="accountData"></account-balance>
   <transaction-graph></transaction-graph>
-  <transaction-table></transaction-table>
+  <transaction-table *ngIf="accountData" [transactions]="accountData.transactions"></transaction-table>
 </div>

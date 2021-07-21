@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Txn, TxnType } from '../../models/data';
 
 @Component({
   selector: 'transaction-table',
@@ -7,10 +8,17 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionTableComponent implements OnInit {
+  TxnType = TxnType;
+  displayedColumns: string[] = ['id', 'date', 'txnType', 'recipient', 'fxConversionFee', 'txnFee', 'amount', 'netAmount'];
+
+  @Input() transactions: Txn[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  convertToEnumDesc(txnType: TxnType) {
+    return TxnType[txnType];
+  }
 }
