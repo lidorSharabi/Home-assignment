@@ -1,12 +1,11 @@
 <mat-form-field>
-    <mat-select>
-        <mat-option *ngFor="let client of clientsAccounts" [value]="client.id">
-            {{client.id}} ({{client.currency.shortCode}})
+    <mat-select [(ngModel)]="selectedAccount" (ngModelChange)="filterChanged()">
+        <mat-option *ngFor="let account of clientsAccounts" [value]="account">
+            {{account.id}} ({{account.currency.shortCode}})
         </mat-option>
     </mat-select>
 </mat-form-field>
-
-<mat-button-toggle-group>
-    <mat-button-toggle *ngFor="let dateRange of dateRangeList" [value]="dateRange.value">
+<mat-button-toggle-group [(ngModel)]="selectedDateRange" (change)="filterChanged()">
+    <mat-button-toggle *ngFor="let dateRange of dateRanges" [value]="dateRange">
         {{dateRange.desc}}</mat-button-toggle>
 </mat-button-toggle-group>

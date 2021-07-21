@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientAccount } from './models/client-account';
+import { AccountData, ClientAccount } from './models/data';
 import { DateRange } from './models/date-range';
+import { FilterRequest } from './models/filter-request';
 import { AccountTransactionsService } from './services/account-transactions.service';
 
 @Component({
@@ -9,10 +10,11 @@ import { AccountTransactionsService } from './services/account-transactions.serv
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  clientsAccounts: ClientAccount[] = [];
+  clientsAccountsList: ClientAccount[] = [];
+  accountData!: AccountData;
+
   dateRangeList: DateRange[] = [
     { value: 7, desc: '7 days' },
-    { value: 14, desc: '14 days' },
     { value: 30, desc: '30 days' },
     { value: 60, desc: '60 days' },
     { value: 90, desc: '90 days' }
@@ -23,10 +25,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountTransactionsService.getClientsAccount().subscribe(response =>
-      this.clientsAccounts = response
+      this.clientsAccountsList = response
     );
   }
 
+  newFilterRequest(req: FilterRequest) {
+    let startDateStr = this.customDateFormat(req.startDate);
+    let endDateStr = this.customDateFormat(req.endDate);
+    this.accountTransactionsService.getAccountInfo(req.id, startDateStr, endDateStr).subscribe(response =>
+      this.accountData = response
+    );
+  }
 
+  customDateFormat(date: Date) {
+    return date.toISOString().slice(0, 10);
+  }
 }
 

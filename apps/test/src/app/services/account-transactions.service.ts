@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ClientAccount } from '../models/client-account';
+import { AccountData, ClientAccount } from '../models/data';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Header } from '@nestjs/common';
+import { FilterRequest } from '../models/filter-request';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Header } from '@nestjs/common';
 export class AccountTransactionsService {
   // TODO - take urls from config
   // TODO - create http service for all httpRequest calls
-  baseUrl = 'http://localhost:3333/api/';
+  baseUrl = '/api/';
   accountsUrl = 'accounts';
   accountInfoUrl = 'accountInfo/';
   constructor(private http: HttpClient) { }
@@ -24,9 +25,9 @@ export class AccountTransactionsService {
       // );
   }
 
-  getAccountInfo(id: number): Observable<ClientAccount[]> {
-    let url = this.baseUrl + this.accountInfoUrl + `${id}`;
-    return this.http.get<ClientAccount[]>(url, { withCredentials: true, headers: {'Access-Control-Allow-Origin': '*'}})
+  getAccountInfo(accountId: number, startDate: string, endDate: string): Observable<AccountData> {
+    let url = this.baseUrl + this.accountInfoUrl + `${accountId}?fromDate=${startDate}&toDate=${endDate}`;
+    return this.http.get<AccountData>(url, { withCredentials: true, headers: {'Access-Control-Allow-Origin': '*'}})
       // .pipe(
       //   catchError(this.handleError(url, id))
       // );

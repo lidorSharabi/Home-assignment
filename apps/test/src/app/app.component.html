@@ -1,8 +1,12 @@
 <nav class="logo-container">
   <div class='logo'></div>
 </nav>
+<div class="dashboard-container">
+  <filter-transactions [dateRangeList]="dateRangeList" [clientsAccountsList]="clientsAccountsList"
+    (newFilterRequest)="newFilterRequest($event)">
+  </filter-transactions>
 
-<filter-transactions [dateRangeList]="dateRangeList" [clientsAccounts]="clientsAccounts"></filter-transactions>
-<account-balance></account-balance>
-<transaction-graph></transaction-graph>
-<transaction-table></transaction-table>
+  <account-balance [accountData]="accountData"></account-balance>
+  <transaction-graph></transaction-graph>
+  <transaction-table></transaction-table>
+</div>

@@ -1,1 +1,10 @@
-<p>account-balance works!</p>
+<div *ngIf="currentBalance">
+    <div>
+        <span class="text-label"> Current Balance: </span>
+        {{currentBalance}}
+    </div>
+    <div>
+        <span class="text-label"> Starting Balance: </span>
+        {{accumulateAmountTransactions}}
+    </div>
+</div>

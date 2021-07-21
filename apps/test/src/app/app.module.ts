@@ -11,6 +11,7 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatButtonToggleModule,

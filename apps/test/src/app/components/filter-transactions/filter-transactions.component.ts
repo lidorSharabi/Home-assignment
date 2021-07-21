@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ClientAccount } from '../../models/client-account';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { ClientAccount } from '../../models/data';
 import { DateRange } from '../../models/date-range';
+import { FilterRequest } from '../../models/filter-request';
 
 @Component({
   selector: 'filter-transactions',
@@ -9,7 +10,36 @@ import { DateRange } from '../../models/date-range';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterTransactionsComponent {
-  @Input() dateRangeList: DateRange[] = [];
-  @Input() clientsAccounts: ClientAccount[] = [];
-  constructor() { }
+  clientsAccounts: ClientAccount[] = [];
+  dateRanges: DateRange[] = [];
+  selectedAccount: ClientAccount | undefined;
+  selectedDateRange: DateRange | undefined;
+
+  @Output() newFilterRequest: EventEmitter<FilterRequest> = new EventEmitter()
+
+  @Input() set dateRangeList(value: DateRange[]) {
+    this.dateRanges = value;
+    this.selectedDateRange = this.dateRanges[0];
+  }
+
+  @Input() set clientsAccountsList(value: ClientAccount[]) {
+    this.clientsAccounts = value;
+    this.selectedAccount = this.clientsAccounts[0];
+  }
+
+  filterChanged() {
+    let req = {
+      id: this.selectedAccount?.id,
+      startDate: this.calculateStartDate(),
+      endDate: new Date()
+    } as FilterRequest;
+    this.newFilterRequest.emit(req);
+  }
+
+  calculateStartDate() {
+    const days = this.selectedDateRange?.value != undefined ? this.selectedDateRange?.value : 0;
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    return startDate;
+  }
 }
