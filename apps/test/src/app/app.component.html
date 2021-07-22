@@ -7,6 +7,8 @@
   </filter-transactions>
 
   <account-balance [accountData]="accountData"></account-balance>
-  <transaction-graph></transaction-graph>
-  <transaction-table *ngIf="accountData" [transactions]="accountData.transactions"></transaction-table>
+  <ng-container *ngIf="accountData">
+    <transaction-graph [transactions]="accountData.transactions"></transaction-graph>
+    <transaction-table [transactions]="accountData.transactions"></transaction-table>
+  </ng-container>
 </div>
