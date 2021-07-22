@@ -14,6 +14,8 @@ export class FilterTransactionsComponent {
   dateRanges: DateRange[] = [];
   selectedAccount: ClientAccount | undefined;
   selectedDateRange: DateRange | undefined;
+  showCustomDate: boolean = false;
+  customDate: any;
 
   @Output() newFilterRequest: EventEmitter<FilterRequest> = new EventEmitter()
 
@@ -30,7 +32,11 @@ export class FilterTransactionsComponent {
   }
 
   filterChanged() {
-    if (this.selectedAccount?.id && this.selectedDateRange?.value) {
+    if (this.selectedDateRange?.value == -1) {
+      this.showCustomDate = true;
+    }
+    else if (this.selectedAccount?.id) {
+      this.showCustomDate = false;
       let req = {
         id: this.selectedAccount?.id,
         startDate: this.calculateStartDate(),
@@ -45,5 +51,16 @@ export class FilterTransactionsComponent {
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
     return startDate;
+  }
+
+  customDateChanged() {
+    if (this.selectedAccount?.id && this.customDate!!) {
+      let req = {
+        id: this.selectedAccount?.id,
+        startDate: new Date(this.customDate),
+        endDate: new Date()
+      } as FilterRequest;
+      this.newFilterRequest.emit(req);
+    }
   }
 }

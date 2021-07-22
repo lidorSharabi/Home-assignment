@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
     { value: 7, desc: '7 days' },
     { value: 30, desc: '30 days' },
     { value: 60, desc: '60 days' },
-    { value: 90, desc: '90 days' }
-    // TODO - add custom date
+    { value: 90, desc: '90 days' },
+    { value: -1, desc: 'custom' }
   ]
 
   constructor(private accountTransactionsService: AccountTransactionsService) { }
