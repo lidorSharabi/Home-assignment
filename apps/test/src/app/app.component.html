@@ -2,7 +2,7 @@
   <div class='logo'></div>
 </nav>
 <div class="dashboard-container">
-  <filter-transactions [dateRangeList]="dateRangeList" [clientsAccountsList]="clientsAccountsList"
+  <filter-transactions [dateRangeList]="dateRangeList" [clientsAccountsList]="clientsAccountsList" [useCustomDate]="true"
     (newFilterRequest)="newFilterRequest($event)">
   </filter-transactions>
 

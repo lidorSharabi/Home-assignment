@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ClientAccount } from '../../models/data';
 import { DateRange } from '../../models/date-range';
 import { FilterRequest } from '../../models/filter-request';
@@ -9,7 +9,7 @@ import { FilterRequest } from '../../models/filter-request';
   styleUrls: ['./filter-transactions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterTransactionsComponent {
+export class FilterTransactionsComponent implements OnInit {
   clientsAccounts: ClientAccount[] = [];
   dateRanges: DateRange[] = [];
   selectedAccount: ClientAccount | undefined;
@@ -18,6 +18,8 @@ export class FilterTransactionsComponent {
   customDate: any;
 
   @Output() newFilterRequest: EventEmitter<FilterRequest> = new EventEmitter()
+
+  @Input() useCustomDate: boolean = false;
 
   @Input() set dateRangeList(value: DateRange[]) {
     this.dateRanges = value;
@@ -31,6 +33,11 @@ export class FilterTransactionsComponent {
     this.filterChanged();
   }
 
+  ngOnInit(): void {
+    if (this.useCustomDate){
+      this.dateRanges.push({ value: -1, desc: 'custom' });
+    }
+  }
   filterChanged() {
     if (this.selectedDateRange?.value == -1) {
       this.showCustomDate = true;
