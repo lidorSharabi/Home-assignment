@@ -9,6 +9,6 @@
   <account-balance [accountData]="accountData"></account-balance>
   <ng-container *ngIf="accountData">
     <transaction-graph [transactions]="accountData.transactions"></transaction-graph>
-    <transaction-table [transactions]="accountData.transactions"></transaction-table>
+    <transaction-table [transactions]="accountData.transactions" [displayedColumns]="displayedColumns"></transaction-table>
   </ng-container>
 </div>

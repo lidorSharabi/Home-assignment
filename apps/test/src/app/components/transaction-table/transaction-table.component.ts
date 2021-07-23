@@ -8,9 +8,7 @@ import { Txn, TxnType } from '../../models/data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransactionTableComponent implements OnInit {
-  TxnType = TxnType;
-  displayedColumns: string[] = ['id', 'date', 'txnType', 'recipient', 'fxConversionFee', 'txnFee', 'amount', 'netAmount'];
-
+  @Input() displayedColumns: string[] = [];
   @Input() transactions: Txn[] = [];
 
   constructor() { }
